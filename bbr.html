@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="华帅">
+<meta name="twitter:description" content="我们的目标是星辰大海">
+<meta name="twitter:image:src" content="https://www.7378.org/images/avatar.png">
+
+<meta property="og:url" content="https://www.7378.org">
+<meta property="og:title" content="华帅">
+<meta property="og:description" content="我们的目标是星辰大海">
+<meta property="og:site_name" content="华帅">
+<meta property="og:image" content="https://www.7378.org/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="华帅">
+<meta itemprop="description" content="我们的目标是星辰大海">
+<meta itemprop="image" content="https://www.7378.org/images/avatar.png">
+
+<link rel="canonical" href="https://www.7378.org">
+
+<link rel="shortcut icon" href="/favicon.png?v=2017">
+<link rel="apple-itouch-icon" href="/favicon.png?v=2017">
+<link rel="stylesheet" href="/bundle/index.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="网络,">
+        <meta name="description" content="Centos 6升级kernel至4.9 体验google黑科技TCP BBR算法">
+        <meta name="author" content="">
+        <title>Centos 6升级kernel至4.9 体验google黑科技TCP BBR算法</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap asset" style="background-image: url(./images/bg1.jpg);">
+  <nav class="main-nav">
+    
+      <a class="blog-logo" href="/"><img class="logo" src="/images/avatar.png" /></a>
+    
+    <ul class="menu vertical">
+        <li class="menu-item"><a href="/archive.html">归档</a></li>
+        <li class="menu-item"><a href="/tag.html">标签</a></li>
+        <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+        <li class="menu-item"><a href="/about.me.html">关于</a></li>
+    </ul>
+  </nav>
+  <div class="vertical">
+    <div class="header-wrap-content inner">
+      <h1 class="title">华帅</h1>
+      <h2 class="subtitle">我们的目标是星辰大海</h2>
+    </div>
+  </div>
+  <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Centos 6升级kernel至4.9 体验google黑科技TCP BBR算法</h1>
+                <section class="info">
+                    
+                    
+                    
+                    <span class="date" data-time="1486946766"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e7%bd%91%e7%bb%9c/index.html">网络</a></span>
+                </section>
+                <article class="content"><p>虽然不怎么认同BBR这个算法，但是在出口带宽大，到大陆连接质量差的美国机房开启这个玩意就相当于是量身定做的一个协议了</p>
+
+<p>之前在hostus.us买了个kvm的，CN2半程直连，回程走chinanet直连，去程走CN2，质量非常好，上传可以跑满，但是下行就不行了，最开始开启了锐速，后来觉得这个软件不安全，转移至BBR这种开源技术。</p>
+
+<p>需要升级4.9的kernel才行，升级不用想那么多，对一般的应用不会有什么影响，我这边升级完成后ss和anyconnect都正常。</p>
+
+<p>第一步导入ELRepo GPG key</p>
+
+<pre><code>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+</code></pre>
+
+<p>安装 ELRepo，我这里是CentOS 6,这个经常有更新，可以去官网去看</p>
+
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm
+</code></pre>
+
+<p>如果是7就安装这个</p>
+
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+</code></pre>
+
+<p>直接升级</p>
+
+<pre><code>yum --enablerepo=elrepo-kernel install kernel-ml
+</code></pre>
+
+<p>修改一下grub配置，默认没有把4.9设置为默认启动  吧default改为4.9的</p>
+
+<pre><code>vim /boot/grub/grub.conf
+</code></pre>
+
+<p>重启之后可以看到内核已经修改为4.9</p>
+
+<pre><code>[root@cn ~]# uname -r
+4.9.9-1.el6.elrepo.x86_64
+开启TCP BBR
+
+[root@cn ~]# echo &quot;net.core.default_qdisc=fq&quot; &gt;&gt; /etc/sysctl.conf
+[root@cn ~]#  echo &quot;net.ipv4.tcp_congestion_control=bbr&quot; &gt;&gt; /etc/sysctl.conf
+[root@cn ~]#  sysctl -p
+net.ipv4.ip_forward = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+kernel.shmmax = 68719476736
+kernel.shmall = 4294967296
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+</code></pre>
+
+<p>确认是否正常</p>
+
+<pre><code>[root@cn ~]# sysctl net.ipv4.tcp_available_congestion_control
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+[root@cn ~]# sysctl -n net.ipv4.tcp_congestion_control
+bbr
+[root@cn ~]# lsmod | grep bbr
+tcp_bbr                16384  6
+</code></pre>
+</article>
+                <section class="author">
+                    
+                    <a class="name" href="/about..html"></a>
+                    <div class="intro"></div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        
+                        <a class="link" href="/tier1-club.html">上篇文章</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        
+                        <a class="link" href="/shadowsocks-libev.html">下篇文章</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer clearfix">
+    <span class="copyright">
+        华帅 &copy;
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

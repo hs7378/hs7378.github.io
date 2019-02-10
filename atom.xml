@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+  <title>华帅</title>
+  <id>https://www.7378.org</id>
+  <updated>2019-02-10T16:42:46+08:00</updated>
+  <subtitle>我们的目标是星辰大海</subtitle>
+  <link href="https://www.7378.org"></link>
+  <author>
+    <name>华帅</name>
+  </author>
+  <entry>
+    <title>博客迁移2019</title>
+    <updated>2019-02-01T08:46:06+08:00</updated>
+    <id>tag:www.7378.org,2019-02-01:/move.html</id>
+    <content type="html">&lt;p&gt;一直比较厌恶复杂的东西，也难以理解一个简单的博客为什么要那么复杂。这次一次性吧这些问题搞定&lt;/p&gt;&#xA;</content>
+    <link href="https://www.7378.org/move.html"></link>
+  </entry>
+  <entry>
+    <title>ACS UCP（User Change Password）自主修改账号密码页面</title>
+    <updated>2017-12-30T08:46:06+08:00</updated>
+    <id>tag:www.7378.org,2017-12-30:/acs-ucp.html</id>
+    <content type="html">&lt;p&gt;目标就是搭建出一个环境可以让ACS用户自助修改自己的密码&lt;/p&gt;&#xA;</content>
+    <link href="https://www.7378.org/acs-ucp.html"></link>
+  </entry>
+  <entry>
+    <title>HTTP首部自定义字段</title>
+    <updated>2017-10-10T08:46:06+08:00</updated>
+    <id>tag:www.7378.org,2017-10-10:/http-head.html</id>
+    <content type="html">&lt;p&gt;HTTP首部的自定义字段，查找了很多资料，有些虽然不是标准，但是事实已经是标准。&lt;/p&gt;&#xA;</content>
+    <link href="https://www.7378.org/http-head.html"></link>
+  </entry>
+  <entry>
+    <title>编码问题</title>
+    <updated>2017-09-02T08:46:06+08:00</updated>
+    <id>tag:www.7378.org,2017-09-02:/encode.html</id>
+    <content type="html">&lt;p&gt;网上的各种垃圾说法满天飞，自己查找资料总结下Unicode、UTF-8这些玩意的区别。&lt;/p&gt;&#xA;</content>
+    <link href="https://www.7378.org/encode.html"></link>
+  </entry>
+  <entry>
+    <title>查看世界各地国际互联网骨干BGP路由，包括Tier 1和Tier 2 ISP</title>
+    <updated>2017-02-16T08:46:06+08:00</updated>
+    <id>tag:www.7378.org,2017-02-16:/tier1-club.html</id>
+    <content type="html">&lt;p&gt;之前学习BGP的时候一直流传一个免费的查看BGP路由的服务器，但是单个运营商看不出整体，也看不到具体IP的流量走向，偶然发现有这个好东西，包括了大部分主流运营商。 直接telnet即可  原网站地址&lt;a href=&#34;http://routeserver.org/&#34;&gt;http://routeserver.org/&lt;/a&gt;    直接点击即可telnet上去查看&lt;/p&gt;&#xA;</content>
+    <link href="https://www.7378.org/tier1-club.html"></link>
+  </entry>
+</feed>

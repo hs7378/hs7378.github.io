@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="华帅">
+<meta name="twitter:description" content="我们的目标是星辰大海">
+<meta name="twitter:image:src" content="https://www.7378.org/images/avatar.png">
+
+<meta property="og:url" content="https://www.7378.org">
+<meta property="og:title" content="华帅">
+<meta property="og:description" content="我们的目标是星辰大海">
+<meta property="og:site_name" content="华帅">
+<meta property="og:image" content="https://www.7378.org/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="华帅">
+<meta itemprop="description" content="我们的目标是星辰大海">
+<meta itemprop="image" content="https://www.7378.org/images/avatar.png">
+
+<link rel="canonical" href="https://www.7378.org">
+
+<link rel="shortcut icon" href="/favicon.png?v=2017">
+<link rel="apple-itouch-icon" href="/favicon.png?v=2017">
+<link rel="stylesheet" href="/bundle/index.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="HTTP,">
+        <meta name="description" content="HTTP首部自定义字段">
+        <meta name="author" content="">
+        <title>HTTP首部自定义字段</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap asset" style="background-image: url(./images/bg1.jpg);">
+  <nav class="main-nav">
+    
+      <a class="blog-logo" href="/"><img class="logo" src="/images/avatar.png" /></a>
+    
+    <ul class="menu vertical">
+        <li class="menu-item"><a href="/archive.html">归档</a></li>
+        <li class="menu-item"><a href="/tag.html">标签</a></li>
+        <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+        <li class="menu-item"><a href="/about.me.html">关于</a></li>
+    </ul>
+  </nav>
+  <div class="vertical">
+    <div class="header-wrap-content inner">
+      <h1 class="title">华帅</h1>
+      <h2 class="subtitle">我们的目标是星辰大海</h2>
+    </div>
+  </div>
+  <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
+</header>
+
+            <article class="main article">
+                <h1 class="title">HTTP首部自定义字段</h1>
+                <section class="info">
+                    
+                    
+                    
+                    <span class="date" data-time="1507596366"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/HTTP/index.html">HTTP</a></span>
+                </section>
+                <article class="content"><p>查找了很多资料，HTTP首部的自定义字段，有些虽然不是标准，但是事实已经是标准。</p>
+
+<p>HTTP 消息头用来准确描述正在获取的资源、服务器或者客户端的行为。 自定义专用消息头可通过’X-‘ 前缀来添加; 其他的消息头在 IANA 注册表 中列出, 其原始内容在 RFC 4229中定义. IANA 同时还维护了被提议的新HTTP 消息头注册表.  来源自<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers</a> 的解释：</p>
+
+<h2>1.在CDN里面使用</h2>
+
+<p>确认自己的内容是不是被CDN缓存了、在什么节点缓存、在内存还是硬盘缓存。
+- 腾讯的 www.qq.com</p>
+
+<pre><code>Cache-Control: max-age=60
+Connection: keep-alive
+Content-Encoding: gzip
+Content-Type: text/html; charset=GB2312
+Date: Tue, 10 Oct 2017 06:41:32 GMT
+Expires: Tue, 10 Oct 2017 06:42:32 GMT
+Server: squid/3.5.20
+Transfer-Encoding: chunked
+Vary: Accept-Encoding
+Vary: Accept-Encoding
+Vary: Accept-Encoding
+X-Cache: HIT from shenzhen.qq.com #自定义字段，给CDN使用
+</code></pre>
+
+<ul>
+<li>腾讯云CDN的字段和他们自有用的产品貌似不一样</li>
+</ul>
+
+<pre><code>X-Cache-Lookup: Hit From MemCache #表示命中 CDN 节点的内存。
+X-Cache-Lookup: Hit From Disktank #表示命中 CDN 节点的磁盘。
+X-Cache-Lookup: Hit From Upstream #表示没有命中 CDN。
+</code></pre>
+
+<ul>
+<li>淘宝的www.taobao.com的描述和阿里云CDN的产品描述是一样的</li>
+</ul>
+
+<pre><code>Age: 761
+Cache-Control: max-age=0, s-maxage=3600
+Connection: keep-alive
+Content-Encoding: gzip
+Content-Type: text/html; charset=utf-8
+Date: Tue, 10 Oct 2017 06:48:58 GMT
+EagleId: 7909d4e615076181383338721e
+Server: Tengine
+Strict-Transport-Security: max-age=31536000
+Timing-Allow-Origin: *
+Transfer-Encoding: chunked
+Vary: Accept-Encoding
+Vary: Ali-Detector-Type, X-CIP-PT
+Via: cache35.l2cn62[110,200-0,C], cache36.l2cn62[106,0], cache4.cn225[0,200-0,H], cache4.cn225[1,0]
+X-Cache: HIT TCP_MEM_HIT dirn:-2:-2 mlen:-1 #自定义字段，给CND使用
+X-Swift-CacheTime: 3600
+X-Swift-SaveTime: Tue, 10 Oct 2017 06:36:17 GMT
+</code></pre>
+
+<h2>2.在防盗链里面使用</h2>
+
+<ul>
+<li>youtube防盗链</li>
+</ul>
+
+<pre><code>alt-svc: quic=”:443″; ma=2592000; v=”39,38,37,35″
+cache-control: no-cache
+content-encoding: br
+content-type: text/html; charset=utf-8
+date: Tue, 10 Oct 2017 06:39:47 GMT
+expires: Tue, 27 Apr 1971 19:44:06 EST
+p3p: CP=”This is not a P3P policy! See http://support.google.com/accounts/answer/151657?hl=en for more info.”
+server: YouTube Frontend Proxy
+set-cookie: YSC=EToAyfxXAbk; path=/; domain=.youtube.com; httponly
+status: 200
+strict-transport-security: max-age=31536000
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block; report=https://www.google.com/appserve/security-bugs/log/youtube
+</code></pre>
+
+<p><strong>X-Frame-Options 有三个值:</strong></p>
+
+<ul>
+<li><strong>DENY</strong>
+表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。</li>
+<li><strong>SAMEORIGIN</strong>
+表示该页面可以在相同域名页面的 frame 中展示。</li>
+<li><strong>ALLOW-FROM uri</strong>
+表示该页面可以在指定来源的 frame 中展示。
+换一句话说，如果设置为 DENY，不光在别人的网站 frame 嵌入时会无法加载，在同域名页面中同样会无法加载。另一方面，如果设置为SAMEORIGIN，那么页面就可以在同域名页面的 frame 中嵌套。</li>
+</ul>
+
+<h2>3.在各种正向、反向代理，负载均衡设备，CDN中使用的Forwarded 首部</h2>
+
+<p>Forwarded 首部中包含了代理服务器面向客户端的一端，由于代理服务器的在请求路径中的介入而被修改或丢失的信息。但是目前事实上的标准的首部是 X-Forwarded-For 、 X-Forwarded-Host 以及X-Forwarded-Proto</p>
+
+<h3>X-Forwarded-For (XFF) :</h3>
+
+<p>在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。获得最初发起请求的客户端的IP地址，一般在负载均衡设备和CDN上都会添加或修改这个首部</p>
+
+<h3>X-Forwarded-Proto (XFP) :</h3>
+
+<p>用来确定客户端与代理服务器或者负载均衡服务器之间的连接所采用的传输协议（HTTP 或 HTTPS）。在服务器的访问日志中记录的是负载均衡服务器与服务器之间的连接所使用的传输协议，而非客户端与负载均衡服务器之间所使用的协议。为了确定客户端与负载均衡服务器之间所使用的协议， X-Forwarded-For 就派上了用场。</p>
+
+<h3>X-Forwarded-Host (XFH) :</h3>
+
+<p>用来确定客户端发起的请求中使用  Host  指定的初始域名。 反向代理（如负载均衡服务器、CDN等）的域名或端口号可能会与处理请求的源头服务器有所不同，在这种情况下，X-Forwarded-Host 可以用来确定哪一个域名是最初被用来访问的。这个消息首部会被用来进行调试和统计，以及生成基于位置的定制化内容，按照设计的目的，它会暴露一定的隐私和敏感信息，比如客户端的IP地址。所以在应用此消息首部的时候，需要将用户的隐私问题考虑在内。一般CDN回源和实际使用的域名不一样。</p>
+</article>
+                <section class="author">
+                    
+                    <a class="name" href="/about..html"></a>
+                    <div class="intro"></div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        
+                        <a class="link" href="/acs-ucp.html">上篇文章</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        
+                        <a class="link" href="/encode.html">下篇文章</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer clearfix">
+    <span class="copyright">
+        华帅 &copy;
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
