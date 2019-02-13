@@ -45,6 +45,28 @@
     var root = '';
 </script>
 
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
 
         <meta name="keywords" content="我们的目标是星辰大海">
         <meta name="description" content="我们的目标是星辰大海">
@@ -73,10 +95,27 @@
                   
                     <img class="logo" src="/images/avatar.png" />
                     <h1 class="tag">建站</h1>
-                    <h2 class="tag-sub">1 篇文章</h2>
+                    <h2 class="tag-sub">2 篇文章</h2>
                   
                 </header>
                 <ul class="article-list">
+                    
+                    <li class="article">
+                        <a class="title" href="/move-2.html">博客迁移2019--续</a>
+                        <div class="cover" style="background-image:url(/images/1/cdn-vs-multicdn.png);"></div>
+                        <section class="preview content"><p>部分国内朋友反应加载图片比较慢，进行了一下优化</p>
+</section>
+                        <section class="info">
+                            
+                            
+                            
+                            <span class="date" data-time="1550018766"><span class="from"></span></span>
+                            
+                            <span class="tags">
+                            <a class="tag" href="/tag/%e5%bb%ba%e7%ab%99/index.html">建站</a>
+                            </span>
+                        </section>
+                    </li>
                     
                     <li class="article">
                         <a class="title" href="/move.html">博客迁移2019</a>
@@ -111,6 +150,7 @@
         </script>
     </span>
     <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+    <a href="https://www.upyun.com/" target="_blank" style="display:inline-block;" rel="twipsy" title="" data-original-title="CDN, Ruby Mirror, RubyGems CDN 由又拍云赞助"><img src="/images/upyun.png" style="height: 25px"></a>
 </footer>
 
     </body>

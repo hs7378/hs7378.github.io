@@ -45,6 +45,28 @@
     var root = '';
 </script>
 
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
 
         <meta name="keywords" content="我们的目标是星辰大海">
         <meta name="description" content="我们的目标是星辰大海">
@@ -89,6 +111,23 @@
                   
                 </header>
                 <ul class="article-list">
+                    
+                    <li class="article">
+                        <a class="title" href="/tier1-club.html">查看世界各地国际互联网骨干BGP路由，包括Tier 1和Tier 2 ISP</a>
+                        <div class="cover" style="background-image:url(/images/1/Tier1ISPclub.png);"></div>
+                        <section class="preview content"><p>之前学习BGP的时候一直流传一个免费的查看BGP路由的服务器，但是单个运营商看不出整体，也看不到具体IP的流量走向，偶然发现有这个好东西，包括了大部分主流运营商。 直接telnet即可  原网站地址<a href="http://routeserver.org/">http://routeserver.org/</a>    直接点击即可telnet上去查看</p>
+</section>
+                        <section class="info">
+                            
+                            
+                            
+                            <span class="date" data-time="1487205966"><span class="from"></span></span>
+                            
+                            <span class="tags">
+                            <a class="tag" href="/tag/%e7%bd%91%e7%bb%9c/index.html">网络</a>
+                            </span>
+                        </section>
+                    </li>
                     
                     <li class="article">
                         <a class="title" href="/bbr.html">Centos 6升级kernel至4.9 体验google黑科技TCP BBR算法</a>
@@ -158,23 +197,6 @@
                         </section>
                     </li>
                     
-                    <li class="article">
-                        <a class="title" href="/ipv6.html">电信WI-FI支持ipv6了</a>
-                        
-                        <section class="preview content"><p>这是迁移博客发现的旧文，当时免费WiFi还比较少，连的是电信的收费WIFI</p>
-</section>
-                        <section class="info">
-                            
-                            
-                            
-                            <span class="date" data-time="1549759566"><span class="from"></span></span>
-                            
-                            <span class="tags">
-                            <a class="tag" href="/tag/%e7%bd%91%e7%bb%9c/index.html">网络</a>
-                            </span>
-                        </section>
-                    </li>
-                    
                 </ul>
                 <section class="page-nav">
                     <a class="prev" href="/index.html">上一页</a>
@@ -191,6 +213,7 @@
         </script>
     </span>
     <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+    <a href="https://www.upyun.com/" target="_blank" style="display:inline-block;" rel="twipsy" title="" data-original-title="CDN, Ruby Mirror, RubyGems CDN 由又拍云赞助"><img src="/images/upyun.png" style="height: 25px"></a>
 </footer>
 
     </body>

@@ -45,6 +45,28 @@
     var root = '';
 </script>
 
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
 
         <meta name="keywords" content="我们的目标是星辰大海">
         <meta name="description" content="我们的目标是星辰大海">
@@ -89,6 +111,23 @@
                   
                 </header>
                 <ul class="article-list">
+                    
+                    <li class="article">
+                        <a class="title" href="/ccie-pass.html">CCIE，没有悬念的pass</a>
+                        
+                        <section class="preview content"><p>看看过去装逼</p>
+</section>
+                        <section class="info">
+                            
+                            
+                            
+                            <span class="date" data-time="1318553166"><span class="from"></span></span>
+                            
+                            <span class="tags">
+                            <a class="tag" href="/tag/%e6%80%9d%e7%a7%91/index.html">思科</a>
+                            </span>
+                        </section>
+                    </li>
                     
                     <li class="article">
                         <a class="title" href="/qiaobushi.html">留下</a>
@@ -140,6 +179,7 @@
         </script>
     </span>
     <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+    <a href="https://www.upyun.com/" target="_blank" style="display:inline-block;" rel="twipsy" title="" data-original-title="CDN, Ruby Mirror, RubyGems CDN 由又拍云赞助"><img src="/images/upyun.png" style="height: 25px"></a>
 </footer>
 
     </body>

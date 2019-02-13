@@ -45,6 +45,28 @@
     var root = '';
 </script>
 
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
 
         <meta name="keywords" content="思科,">
         <meta name="description" content="ACS UCP（User Change Password）自主修改账号密码页面">
@@ -141,6 +163,7 @@ Tomcat安装后也需要添加环境变量 变量名：CATALINA_HOME    变量�
         </script>
     </span>
     <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+    <a href="https://www.upyun.com/" target="_blank" style="display:inline-block;" rel="twipsy" title="" data-original-title="CDN, Ruby Mirror, RubyGems CDN 由又拍云赞助"><img src="/images/upyun.png" style="height: 25px"></a>
 </footer>
 
         <script src="/bundle/index.js"></script>
